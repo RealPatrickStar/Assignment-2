@@ -44,13 +44,19 @@ transform = Transform3D(1, 0, 0, 0, 0.979223, 0.202787, 0, -0.202787, 0.979223, 
 fov = 66.0
 
 [node name="Path3D" type="Path3D" parent="."]
-transform = Transform3D(0.993019, -0.103271, -0.056993, 0.104646, 0.994273, 0.0216812, 0.0544275, -0.0274939, 0.998139, 0, 0, 0)
+transform = Transform3D(0.049651, -0.00516356, -0.00284965, 0.0052323, 0.0497137, 0.00108406, 0.00272138, -0.0013747, 0.049907, 26.9724, 1.41533, 25.2411)
 curve = SubResource("Curve3D_fxlm7")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
-transform = Transform3D(0.603473, 0.387357, -0.69697, 1.49011e-08, 0.874072, 0.485788, 0.797378, -0.29316, 0.527482, -282, 304, -210)
+transform = Transform3D(0.0301738, 0.019368, -0.0348486, 7.45059e-10, 0.0437038, 0.0242894, 0.0398691, -0.0146581, 0.0263742, -282, 304, -210)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Path3D/PathFollow3D"]
-transform = Transform3D(5, 0, 0, 0, 0.270394, -4.99268, 0, 4.99268, 0.270394, 0, 0, 0)
+transform = Transform3D(75, 0, 0, 0, 4.05591, -74.8903, 0, 74.8903, 4.05591, 0, 0, 0)
 mesh = SubResource("CapsuleMesh_jkh10")
 surface_material_override/0 = SubResource("StandardMaterial3D_qn6go")
+
+[node name="Camera3D" type="Camera3D" parent="Path3D/PathFollow3D/MeshInstance3D"]
+transform = Transform3D(5.14492, 1.28253, -0.57386, 0.83011, -1.01708, 5.16923, 1.13363, -5.07593, -1.18077, 0.119827, 3.2679, -1.71126)
+current = true
+fov = 95.5336
+near = 0.07
