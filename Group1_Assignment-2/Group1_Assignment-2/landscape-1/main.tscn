@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bqk7tjyhnyv8j"]
+[gd_scene load_steps=9 format=3 uid="uid://bqk7tjyhnyv8j"]
 
 [ext_resource type="Script" path="res://landscape_ver1.gd" id="1_g6rkn"]
+[ext_resource type="Script" path="res://path_follow_3d.gd" id="2_nkgrv"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_35ew3"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -15,6 +16,20 @@ sky = SubResource("Sky_4bph8")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="Curve3D" id="Curve3D_fxlm7"]
+_data = {
+"points": PackedVector3Array(-403.99, -41.5706, 355.591, 403.99, 41.5706, -355.591, -282, 304, -210, -505.747, 76.4535, -293.529, 505.747, -76.4535, 293.529, 1249.51, 63.7147, -111.285, 345.217, -1.78008, -635.865, -345.217, 1.78008, 635.865, 2106.04, -177.594, 1502.82, 651.117, 83.656, 299.323, -651.117, -83.656, -299.323, 89.8073, 99.9466, 1720.89, -476.618, -67.8044, 541.209, 476.618, 67.8044, -541.209, -282, 304, -210),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_jkh10"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qn6go"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.829107, 0.40902, 0.81506, 1)
+metallic = 0.49
+
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_g6rkn")
 
@@ -28,3 +43,23 @@ shadow_enabled = true
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.979223, 0.202787, 0, -0.202787, 0.979223, -0.150704, 2.58244, -0.0102513)
 fov = 66.0
+
+[node name="Path3D" type="Path3D" parent="."]
+transform = Transform3D(0.049651, -0.00516356, -0.00284965, 0.0052323, 0.0497137, 0.00108406, 0.00272138, -0.0013747, 0.049907, -29.6763, 6.48552, -30.4037)
+curve = SubResource("Curve3D_fxlm7")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
+transform = Transform3D(0.000117412, 0.00913453, -0.0491584, 0.00238397, 0.0491019, 0.00912961, 0.0499433, -0.00236528, -0.000320222, 301.915, 256.458, -413.411)
+progress = 636.522
+script = ExtResource("2_nkgrv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Path3D/PathFollow3D"]
+transform = Transform3D(75, 0, 0, 0, 4.05591, -74.8903, 0, 74.8903, 4.05591, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_jkh10")
+surface_material_override/0 = SubResource("StandardMaterial3D_qn6go")
+
+[node name="Camera3D" type="Camera3D" parent="Path3D/PathFollow3D/MeshInstance3D"]
+transform = Transform3D(5.14492, 1.28253, -0.57386, 0.83011, -1.01708, 5.16923, 1.13363, -5.07593, -1.18077, 0.119827, 3.2679, -1.71126)
+current = true
+fov = 95.5336
+near = 0.07
