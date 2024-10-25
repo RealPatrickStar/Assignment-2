@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=3 uid="uid://bqk7tjyhnyv8j"]
+
+[ext_resource type="Script" path="res://landscape_ver1.gd" id="1_g6rkn"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_35ew3"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_4bph8"]
+sky_material = SubResource("ProceduralSkyMaterial_35ew3")
+
+[sub_resource type="Environment" id="Environment_xmdfw"]
+background_mode = 2
+sky = SubResource("Sky_4bph8")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="Curve3D" id="Curve3D_fxlm7"]
+_data = {
+"points": PackedVector3Array(-90.7934, 63.2829, 68.7144, 90.7934, -63.2829, -68.7144, -282, 304, -210, -136.151, 20.5558, -129.797, 136.151, -20.5558, 129.797, 297, 260, -329, 147.682, 68.2488, -156.427, -147.682, -68.2488, 156.427, 268, 315, 164, 115.227, 32.175, 122.449, -115.227, -32.175, -122.449, -245, 382, 295, -80.579, 45.911, 152.418, 80.579, -45.911, -152.418, -282, 304, -210),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_jkh10"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qn6go"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.829107, 0.40902, 0.81506, 1)
+metallic = 0.49
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_g6rkn")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_xmdfw")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.13811, -0.211072, -0.967664, -0.95809, -0.219111, 0.184537, -0.250977, 0.952596, -0.171964, -254.175, 62.9025, 54.3179)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.979223, 0.202787, 0, -0.202787, 0.979223, -0.150704, 2.58244, -0.0102513)
+fov = 66.0
+
+[node name="Path3D" type="Path3D" parent="."]
+transform = Transform3D(0.993019, -0.103271, -0.056993, 0.104646, 0.994273, 0.0216812, 0.0544275, -0.0274939, 0.998139, 0, 0, 0)
+curve = SubResource("Curve3D_fxlm7")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
+transform = Transform3D(0.603473, 0.387357, -0.69697, 1.49011e-08, 0.874072, 0.485788, 0.797378, -0.29316, 0.527482, -282, 304, -210)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Path3D/PathFollow3D"]
+transform = Transform3D(5, 0, 0, 0, 0.270394, -4.99268, 0, 4.99268, 0.270394, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_jkh10")
+surface_material_override/0 = SubResource("StandardMaterial3D_qn6go")

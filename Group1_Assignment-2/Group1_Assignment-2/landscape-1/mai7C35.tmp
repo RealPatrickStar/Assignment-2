@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://bqk7tjyhnyv8j"]
+
+[ext_resource type="Script" path="res://landscape_ver1.gd" id="1_g6rkn"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_35ew3"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_4bph8"]
+sky_material = SubResource("ProceduralSkyMaterial_35ew3")
+
+[sub_resource type="Environment" id="Environment_xmdfw"]
+background_mode = 2
+sky = SubResource("Sky_4bph8")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_g6rkn")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_xmdfw")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.13811, -0.211072, -0.967664, -0.95809, -0.219112, 0.184537, -0.250977, 0.952596, -0.171964, -4.25031, 4.77013, 0.0359852)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.979318, 0.202326, 0, -0.202326, 0.979318, -0.114526, 2.45975, -0.0231908)
+fov = 66.0465
